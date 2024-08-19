@@ -9,8 +9,7 @@ function getComputerChoice() {
         computerChoice = "scissor"
     };
     return computerChoice;
-}
-console.log("Computer chose" + " " + getComputerChoice());
+};
 
 function getHumanChoice() {
     let humanChoice;
