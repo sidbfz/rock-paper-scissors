@@ -1,0 +1,14 @@
+#btns {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin: 10% 0 0 0;
+    gap: 50px;
+}
+
+#rock, #paper, #scissor {
+    font-size: 100px;
+    border: 5px solid rgb(153, 153, 153);
+    border-radius: 25px;
+}
+
