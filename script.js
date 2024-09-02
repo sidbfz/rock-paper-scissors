@@ -1,41 +1,34 @@
-const para = document.querySelector("#result");
+const resultTieContent = document.querySelector("#result-tie-content");
+const resultWinContent = document.querySelector("#result-win-content");
+const resultLoseContent = document.querySelector("#result-lose-content");
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissor = document.querySelector("#scissor");
+const resetButton = document.querySelector("#reset");
 
-let maxRounds = 5;
-let roundsPlayed = 0;
 let humanScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
-    const randomNo = Math.floor(Math.random() * 3 + 1);
-    let computerChoice;
-    if (randomNo === 1) {
-        computerChoice = "rock";
-    } else if (randomNo === 2) {
-        computerChoice = "paper";
-    } else {
-        computerChoice = "scissor";
-    }
-    return computerChoice;
+    const choices = ["rock", "paper", "scissor"];
+    return choices[Math.floor(Math.random() * 3)];
 }
 
 function playRound(humanChoice) {
-    let computerChoice = getComputerChoice();
+    const computerChoice = getComputerChoice();
 
     if (humanChoice === computerChoice) {
-        para.innerHTML += `It's a tie.<br>`;
+        resultTieContent.innerHTML += `<p>It's a tie. Both chose ${humanChoice}.</p>`;
     } else if (
         (humanChoice === "rock" && computerChoice === "scissor") ||
         (humanChoice === "paper" && computerChoice === "rock") ||
         (humanChoice === "scissor" && computerChoice === "paper")
     ) {
-        para.innerHTML += `You win. ${humanChoice} beats ${computerChoice}.<br>`;
-        humanScore += 1;
+        resultWinContent.innerHTML += `<p>You win! ${humanChoice} beats ${computerChoice}.</p>`;
+        humanScore++;
     } else {
-        para.innerHTML += `You lose. ${computerChoice} beats ${humanChoice}.<br>`;
-        computerScore += 1;
+        resultLoseContent.innerHTML += `<p>You lose. ${computerChoice} beats ${humanChoice}.</p>`;
+        computerScore++;
     }
 
     if (humanScore === 5 || computerScore === 5) {
@@ -44,21 +37,64 @@ function playRound(humanChoice) {
 }
 
 function playGame() {
+    const gameContainer = document.querySelector(".game-container");
+    
     if (humanScore === 5) {
-        para.innerHTML += "Congrats! You win the game!<br>";
-        para.style.color = "green"
+        resultWinContent.innerHTML += "<p class='winner'>Congrats! You win the game!</p>";
+        gameContainer.classList.add("game-win"); // Add win animation class
     } else if (computerScore === 5) {
-        para.innerHTML += "Computer defeated you in the game.<br>";
-        para.style.color = "red"
+        resultLoseContent.innerHTML += "<p class='loser'>Computer defeated you in the game.</p>";
+        gameContainer.classList.add("game-lose"); // Add lose animation class
     }
 
     // Disable the buttons after the game ends
     rock.disabled = true;
     paper.disabled = true;
     scissor.disabled = true;
+
+    // Show the reset button
+    resetButton.classList.remove('hidden');
 }
 
-// Set up event listeners for the buttons
-rock.addEventListener("click", () => playRound("rock"));
-paper.addEventListener("click", () => playRound("paper"));
-scissor.addEventListener("click", () => playRound("scissor"));
+function resetGame() {
+    // Reset scores and clear results
+    humanScore = 0;
+    computerScore = 0;
+    resultTieContent.innerHTML = "";
+    resultWinContent.innerHTML = "";
+    resultLoseContent.innerHTML = "";
+
+    // Re-enable the buttons
+    rock.disabled = false;
+    paper.disabled = false;
+    scissor.disabled = false;
+
+    // Hide the reset button
+    resetButton.classList.add('hidden');
+
+    // Remove any game result animations
+    const gameContainer = document.querySelector(".game-container");
+    gameContainer.classList.remove("game-win", "game-lose");
+}
+
+function animateButton(button) {
+    button.classList.add('clicked');
+    setTimeout(() => button.classList.remove('clicked'), 200);
+}
+
+// Add event listeners for button clicks with animation
+rock.addEventListener("click", () => {
+    playRound("rock");
+    animateButton(rock);
+});
+paper.addEventListener("click", () => {
+    playRound("paper");
+    animateButton(paper);
+});
+scissor.addEventListener("click", () => {
+    playRound("scissor");
+    animateButton(scissor);
+});
+
+// Add event listener for reset button
+resetButton.addEventListener("click", resetGame);

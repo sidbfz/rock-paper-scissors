@@ -1,14 +1,103 @@
-#btns {
-    width:100%;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    margin: 10% 0 0 0;
-    gap: 50px;
+    align-items: center;
+    height: 100vh;
+    background-color: #222; /* Dark background */
+    margin: 0;
+    color: #eee; /* Light text color */
 }
 
-#rock, #paper, #scissor {
-    font-size: 100px;
-    border: 5px solid rgb(153, 153, 153);
-    border-radius: 25px;
+/* Game Container */
+.game-container {
+    text-align: center;
+    position: relative; /* Required for absolute positioning of reset button */
 }
 
+/* Button Styles */
+.comic-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5252; /* Red background */
+    border: 2px solid #000; /* Black border */
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #000; /* Black shadow */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.comic-button:hover {
+    background-color: #fff; /* White background */
+    color: #ff5252; /* Red text color */
+    border: 2px solid #ff5252; /* Red border */
+    box-shadow: 5px 5px 0px #ff5252; /* Red shadow */
+}
+
+.comic-button:active {
+    background-color: #fcf414; /* Yellow background */
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+/* Reset Button */
+#reset {
+    display: none; /* Hidden by default */
+    margin-top: 20px;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none; /* Class to hide the button */
+}
+
+/* Button Container */
+#btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust as needed */
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+/* Result Container */
+#result-container {
+    display: flex; /* Use flexbox to place columns side by side */
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    margin-top: 20px;
+    gap: 20px; /* Space between columns */
+}
+
+/* Result Column Styles */
+.result-column {
+    width: 300px; /* Fixed width for columns */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: #333; /* Dark background for results */
+    color: #eee; /* Light text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Slight shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Result Column Header */
+.result-column h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Result Content Styles */
+#result-tie-content,
+#result-win-content,
+#result-lose-content {
+    min-height: 50px;
+}
